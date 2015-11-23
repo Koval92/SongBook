@@ -22,8 +22,7 @@ public class SongList {
 		SongList songList = (SongList) songListUnmarshaller.unmarshal(songListFile);
 
 		for (SongInfo info : songList.songInfos) {
-			String fileName = (info.getAuthor() + "-" + info.getTitle()).replaceAll(" ", "_");
-			System.out.println(info.getAuthor() + " - " + info.getTitle() + ", " + fileName);
+			System.out.println(info.getAuthor() + " - " + info.getTitle() + ", " + info.getFilename());
 		}
 	}
 

@@ -24,12 +24,12 @@ public class SongInfo {
 		this.author = author;
 	}
 
-	public String getFileName() {
+	public String getFilename() {
 		return filename;
 	}
 
-	public void setFileName(String fileName) {
-		this.filename = fileName;
+	public void setFilename(String filename) {
+		this.filename = filename;
 	}
 
 }
