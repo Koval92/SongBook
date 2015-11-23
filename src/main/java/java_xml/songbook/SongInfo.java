@@ -6,7 +6,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class SongInfo {
 	private String title;
 	private String author;
-	private String fileName;
+	private String filename;
 
 	public String getTitle() {
 		return title;
@@ -25,11 +25,11 @@ public class SongInfo {
 	}
 
 	public String getFileName() {
-		return fileName;
+		return filename;
 	}
 
 	public void setFileName(String fileName) {
-		this.fileName = fileName;
+		this.filename = fileName;
 	}
 
 }
