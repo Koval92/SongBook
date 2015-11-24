@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<artists>
+	<artist id="john_smith">John Smith</artist>
+	<artist id="jenny_novak">Jenny Novak</artist>
+	<artist id="john_doe2">John Doe</artist>
+</artists>

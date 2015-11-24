@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<artist id="john_doe">
+	<songs>
+		<song>Song 1</song>
+		<song>Song 2</song>
+	</songs>
+	<description>
+		Author of world-knows Song 1 and Song 2 (covered later by Blur).
+	</description>
+</artist>
