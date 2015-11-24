@@ -27,38 +27,38 @@ public class SongDataTest {
 		jaxbContext = JAXBContext.newInstance(SongData.class);
 		marshaller = jaxbContext.createMarshaller();
 		unmarshaller = jaxbContext.createUnmarshaller();
-		
+
 		marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 	}
-	
+
 	@Rule
-    public TemporaryFolder testFolder = new TemporaryFolder();
+	public TemporaryFolder testFolder = new TemporaryFolder();
 
 	@Test
 	public void shouldMarshalAndUnmarshal() throws IOException, JAXBException {
 		int id = 15;
 		File file = testFolder.newFile("song" + id + ".xml");
-		
+
 		SongData data = createSong(id, 10, 5);
-		
+
 		marshaller.marshal(data, file);
-		
+
 		SongData unmarshalledData = (SongData) unmarshaller.unmarshal(file);
-		
+
 		assertEquals(data.getLyrics(), unmarshalledData.getLyrics());
 		assertEquals(data.getChords(), unmarshalledData.getChords());
 	}
-	
+
 	@Test
 	public void shouldMerge() {
 		int id = 3;
 		SongData data = createSong(id, 7, 3);
 		List<String> merged = data.mergeLyricsAndChords();
-		
+
 		int expectedSize = data.getChords().size() + data.getLyrics().size();
 		int actualSize = merged.size();
 		assertEquals(expectedSize, actualSize);
-		
+
 		assertEquals(data.getLyrics().get(0), merged.get(0));
 		assertEquals(data.getChords().get(0), merged.get(1));
 		assertEquals(data.getLyrics().get(1), merged.get(2));
@@ -70,21 +70,21 @@ public class SongDataTest {
 		assertEquals(data.getLyrics().get(5), merged.get(8));
 		assertEquals(data.getLyrics().get(6), merged.get(9));
 	}
-	
+
 	private SongData createSong(int id, int lyricsLines, int chordsLines) {
 		SongData data1 = new SongData();
-		
+
 		List<String> lyrics = new ArrayList<>();
 		List<String> chords = new ArrayList<>();
-		
-		for(int i=0; i < lyricsLines; i++) {
+
+		for (int i = 0; i < lyricsLines; i++) {
 			lyrics.add("Song " + id + ", lyrics line " + i);
 		}
-		
-		for(int i=0; i < chordsLines; i++) {
+
+		for (int i = 0; i < chordsLines; i++) {
 			chords.add("Song " + id + ", chords line " + i);
 		}
-		
+
 		data1.setLyrics(lyrics);
 		data1.setChords(chords);
 		return data1;
