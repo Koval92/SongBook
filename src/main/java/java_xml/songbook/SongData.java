@@ -25,8 +25,8 @@ public class SongData {
 		return merged;
 	}
 
-	@XmlElement(name = "line")
 	@XmlElementWrapper(name = "lyrics")
+	@XmlElement(name = "line")
 	public List<String> getLyrics() {
 		return lyrics;
 	}
@@ -35,8 +35,8 @@ public class SongData {
 		this.lyrics = lyrics;
 	}
 
-	@XmlElement(name = "line")
 	@XmlElementWrapper(name = "chords")
+	@XmlElement(name = "line")
 	public List<String> getChords() {
 		return chords;
 	}
