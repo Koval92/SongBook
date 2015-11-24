@@ -53,7 +53,7 @@ public class SongDataTest {
 	public void shouldMerge() {
 		int id = 3;
 		SongData data = createSong(id, 7, 3);
-		List<String> merged = data.mergeLyricsAndChords();
+		List<String> merged = data.getMergedLyricsAndChords();
 
 		int expectedSize = data.getChords().size() + data.getLyrics().size();
 		int actualSize = merged.size();

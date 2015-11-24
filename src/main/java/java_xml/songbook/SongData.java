@@ -12,7 +12,7 @@ public class SongData {
 	private List<String> lyrics;
 	private List<String> chords;
 
-	public List<String> mergeLyricsAndChords() {
+	public List<String> getMergedLyricsAndChords() {
 		int c1 = 0, c2 = 0;
 		List<String> merged = new ArrayList<>();
 
