@@ -37,7 +37,8 @@ public class SongDataTest {
 	@Test
 	public void shouldMarshalAndUnmarshal() throws IOException, JAXBException {
 		int id = 15;
-		File file = testFolder.newFile("song" + id + ".xml");
+		String filename = "song" + id + ".xml";
+		File file = testFolder.newFile(filename);
 
 		SongData data = createSong(id, 10, 5);
 

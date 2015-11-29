@@ -31,8 +31,16 @@ public class ArtistListTest {
 		File file = new File("test_db//index3.xml");
 		
 		ArtistList artists = new ArtistList();
-		artists.getArtists().add(new ArtistEntry("William Kidd", "William Kidd"));
-		artists.getArtists().add(new ArtistEntry("Johnny Doe", "Johnny Doe"));
+		
+		ArtistEntry artist1 = new ArtistEntry();
+		artist1.setName("William Kidd");
+		artist1.setId("William Kidd");
+		artists.getArtists().add(artist1);
+		
+		ArtistEntry artist2 = new ArtistEntry();
+		artist2.setName("Johnny Doe");
+		artist2.setId("Johnny Doe");
+		artists.getArtists().add(artist2);
 		
 		marshaller.marshal(artists, file);
 	}
