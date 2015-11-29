@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<artist id="jenny_donelly">
+	<songs>
+		<song id="song_1">Song 1</song>
+		<song id="song_3">Song 3</song>
+		<song id="song_15">Song 15</song>
+	</songs>
+	<description>
+		Author of world-known Song 1 and Song 3.
+	</description>
+</artist>
