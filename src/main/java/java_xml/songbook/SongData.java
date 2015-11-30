@@ -17,10 +17,10 @@ public class SongData {
 		List<String> merged = new ArrayList<>();
 
 		while (c1 < lyrics.size() || c2 < chords.size()) {
-			if (c1 < lyrics.size())
-				merged.add(lyrics.get(c1++));
 			if (c2 < chords.size())
 				merged.add(chords.get(c2++));
+			if (c1 < lyrics.size())
+				merged.add(lyrics.get(c1++));
 		}
 		return merged;
 	}

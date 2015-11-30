@@ -60,12 +60,12 @@ public class SongDataTest {
 		int actualSize = merged.size();
 		assertEquals(expectedSize, actualSize);
 
-		assertEquals(data.getLyrics().get(0), merged.get(0));
-		assertEquals(data.getChords().get(0), merged.get(1));
-		assertEquals(data.getLyrics().get(1), merged.get(2));
-		assertEquals(data.getChords().get(1), merged.get(3));
-		assertEquals(data.getLyrics().get(2), merged.get(4));
-		assertEquals(data.getChords().get(2), merged.get(5));
+		assertEquals(data.getChords().get(0), merged.get(0));
+		assertEquals(data.getLyrics().get(0), merged.get(1));
+		assertEquals(data.getChords().get(1), merged.get(2));
+		assertEquals(data.getLyrics().get(1), merged.get(3));
+		assertEquals(data.getChords().get(2), merged.get(4));
+		assertEquals(data.getLyrics().get(2), merged.get(5));
 		assertEquals(data.getLyrics().get(3), merged.get(6));
 		assertEquals(data.getLyrics().get(4), merged.get(7));
 		assertEquals(data.getLyrics().get(5), merged.get(8));
