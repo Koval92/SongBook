@@ -73,4 +73,12 @@ public class ArtistEntry {
 		}
 		System.out.println();
 	}
+
+	public SongEntry getSongEntry(String id) {
+		return getArtistData().getSongEntry(id);
+	}
+
+	public List<SongEntry> getSongEntries() {
+		return getArtistData().getSongEntries();
+	}
 }

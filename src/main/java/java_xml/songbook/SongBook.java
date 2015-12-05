@@ -12,21 +12,42 @@ public class SongBook {
 	private ArtistList artistList = new ArtistList();
 	
 	public static void main(String args[]) throws JAXBException {
-		SongBook book = new SongBook();
+		String dirName = "./test_db";
 		
+		SongBook book = createSongBookFromDir(dirName);
+		
+		ArtistEntry artistEntry = book.getArtistEntry("jenny_donelly");
+		SongEntry songEntry = artistEntry.getSongEntry("song_15");
+		
+		List<String> lyricsAndChords = book.getArtistEntry("jenny_donelly").getSongEntry("song_15").getMergedLyricsAndChords();
+		for (String string : lyricsAndChords) {
+			System.out.println(string);
+		}
+		
+		book.getArtistEntry("aaa").getSongEntries();
+	}
+
+	private static SongBook createSongBookFromDir(String dirName) throws JAXBException {
+		SongBook songBook = new SongBook();
 		JAXBContext artistListContext = JAXBContext.newInstance(ArtistList.class);
 		Unmarshaller artistListUnmarshaller = artistListContext.createUnmarshaller();
 
-		for (File file : getFileList(new File("./test_db"))) {
-			book.getArtistList().mergeWith((ArtistList) artistListUnmarshaller.unmarshal(file));
+		for (File file : getFileList(new File(dirName))) {
+			songBook.getArtistList().mergeWith((ArtistList) artistListUnmarshaller.unmarshal(file));
 		}
-		
-		List<ArtistEntry> artists = book.getArtists();
-		for (ArtistEntry artistEntry : artists) {
-			artistEntry.display();
-		}
+		return songBook;
 	}
 	
+	private ArtistEntry getArtistEntry(String id) {
+		for (ArtistEntry artistEntry : getArtists()) {
+			if(artistEntry.getId().equals(id)) {
+				return artistEntry;
+			}
+		}
+		
+		return null;
+	}
+
 	public static List<File> getFileList(final File folder) {
 		List<File> files = new ArrayList<>();
 		

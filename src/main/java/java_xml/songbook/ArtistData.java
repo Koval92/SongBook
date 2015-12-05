@@ -34,4 +34,14 @@ public class ArtistData {
 	public String toString() {
 		return "ArtistData [songEntries=" + songEntries + ", description=" + description + "]";
 	}
+
+	public SongEntry getSongEntry(String id) {
+		for (SongEntry songEntry : songEntries) {
+			if(songEntry.getId().equals(id)) {
+				return songEntry;
+			}
+		}
+		
+		return null;
+	}
 }
