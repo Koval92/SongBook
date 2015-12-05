@@ -1,4 +1,4 @@
-package java_xml.songbook;
+package java_xml.songbook.engine;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -23,11 +23,9 @@ public class SongBook {
 		for (String string : lyricsAndChords) {
 			System.out.println(string);
 		}
-		
-		book.getArtistEntry("aaa").getSongEntries();
 	}
 
-	private static SongBook createSongBookFromDir(String dirName) throws JAXBException {
+	public static SongBook createSongBookFromDir(String dirName) throws JAXBException {
 		SongBook songBook = new SongBook();
 		JAXBContext artistListContext = JAXBContext.newInstance(ArtistList.class);
 		Unmarshaller artistListUnmarshaller = artistListContext.createUnmarshaller();
@@ -48,7 +46,7 @@ public class SongBook {
 		return null;
 	}
 
-	public static List<File> getFileList(final File folder) {
+	private static List<File> getFileList(final File folder) {
 		List<File> files = new ArrayList<>();
 		
 	    for (final File fileEntry : folder.listFiles()) {

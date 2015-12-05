@@ -1,4 +1,4 @@
-package java_xml.songbook;
+package java_xml.songbook.engine;
 
 import java.io.File;
 import java.util.List;
@@ -33,7 +33,8 @@ public class ArtistEntry {
 
 	@Override
 	public String toString() {
-		return "ArtistEntry [name=" + name + ", id=" + id + "]";
+		//return "ArtistEntry [name=" + name + ", id=" + id + "]";
+		return name;
 	}
 
 	public ArtistData getArtistData() {

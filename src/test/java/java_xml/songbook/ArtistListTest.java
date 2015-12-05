@@ -12,6 +12,9 @@ import javax.xml.bind.Unmarshaller;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import java_xml.songbook.engine.ArtistEntry;
+import java_xml.songbook.engine.ArtistList;
+
 public class ArtistListTest {
 	private static JAXBContext jaxbContext;
 	private static Marshaller marshaller;

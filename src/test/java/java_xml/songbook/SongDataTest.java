@@ -17,6 +17,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
+import java_xml.songbook.engine.SongData;
+
 public class SongDataTest {
 	private static JAXBContext jaxbContext;
 	private static Marshaller marshaller;

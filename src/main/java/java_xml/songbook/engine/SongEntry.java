@@ -1,4 +1,4 @@
-package java_xml.songbook;
+package java_xml.songbook.engine;
 
 import java.io.File;
 import java.util.List;
@@ -64,4 +64,8 @@ public class SongEntry {
 		return getSongData().getMergedLyricsAndChords();
 	}
 
+	@Override
+	public String toString() {
+		return name;
+	}
 }
