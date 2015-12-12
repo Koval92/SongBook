@@ -10,20 +10,6 @@ import javax.xml.bind.Unmarshaller;
 
 public class SongBook {
 	private ArtistList artistList = new ArtistList();
-	
-	public static void main(String args[]) throws JAXBException {
-		String dirName = "./test_db";
-		
-		SongBook book = createSongBookFromDir(dirName);
-		
-		ArtistEntry artistEntry = book.getArtistEntry("jenny_donelly");
-		SongEntry songEntry = artistEntry.getSongEntry("song_15");
-		
-		List<String> lyricsAndChords = book.getArtistEntry("jenny_donelly").getSongEntry("song_15").getMergedLyricsAndChords();
-		for (String string : lyricsAndChords) {
-			System.out.println(string);
-		}
-	}
 
 	public static SongBook createSongBookFromDir(String dirName) throws JAXBException {
 		SongBook songBook = new SongBook();
