@@ -2,14 +2,19 @@ package java_xml.songbook.engine;
 
 import java.io.File;
 import java.util.List;
+import java.util.logging.Logger;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlValue;
 
 public class ArtistEntry {
+	@XmlTransient
+	Logger log = Logger.getLogger(ArtistEntry.class.getName());
+	
 	private String name;
 	private String id;
 
@@ -33,7 +38,7 @@ public class ArtistEntry {
 
 	@Override
 	public String toString() {
-		//return "ArtistEntry [name=" + name + ", id=" + id + "]";
+		// return "ArtistEntry [name=" + name + ", id=" + id + "]";
 		return name;
 	}
 
@@ -52,7 +57,7 @@ public class ArtistEntry {
 				e.printStackTrace();
 			}
 		} else {
-			System.out.println("No file for this artist!");
+			log.warning("No file for this artist!");
 		}
 
 		return artistData;
@@ -80,6 +85,11 @@ public class ArtistEntry {
 	}
 
 	public List<SongEntry> getSongEntries() {
-		return getArtistData().getSongEntries();
+		ArtistData artistData = getArtistData();
+		if (artistData == null) {
+			log.warning("return null!");
+			return null;			
+		}
+		return artistData.getSongEntries();
 	}
 }
