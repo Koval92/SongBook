@@ -1,5 +1,6 @@
 package java_xml.songbook.gui;
 
+import java.awt.Container;
 import java.awt.EventQueue;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
@@ -22,7 +23,7 @@ import java_xml.songbook.engine.SongEntry;
 public class App {
 	Logger log = Logger.getLogger(App.class.getName());
 
-	private JFrame frmSongbook;
+	private JFrame frame;
 	SongBook book;
 
 	private JComboBox<ArtistEntry> artistComboBox;
@@ -30,12 +31,14 @@ public class App {
 	private JTextArea textArea;
 	private JScrollPane scrollPane;
 
+	private Container contentPane;
+
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					App window = new App();
-					window.frmSongbook.setVisible(true);
+					App app = new App();
+					app.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -53,16 +56,12 @@ public class App {
 	}
 
 	private void initialize() {
-		frmSongbook = new JFrame();
-		frmSongbook.setTitle("SongBook");
-		frmSongbook.setResizable(false);
-		frmSongbook.setBounds(100, 100, 400, 400);
-		frmSongbook.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frmSongbook.getContentPane().setLayout(null);
+		initializeFrame();
+		contentPane = frame.getContentPane();
 
 		JPanel panel = new JPanel();
 		panel.setBounds(139, 11, 246, 70);
-		frmSongbook.getContentPane().add(panel);
+		contentPane.add(panel);
 		panel.setLayout(null);
 
 		JLabel lblArtist = new JLabel("Artist");
@@ -74,15 +73,41 @@ public class App {
 		artistComboBox.setBounds(80, 12, 156, 20);
 		panel.add(artistComboBox);
 
+		JLabel lblSong = new JLabel("Song:");
+		lblSong.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblSong.setBounds(7, 44, 63, 14);
+		panel.add(lblSong);
+
+		songComboBox = new JComboBox<SongEntry>();
+		songComboBox.setBounds(80, 41, 156, 20);
+		panel.add(songComboBox);
+
 		artistComboBox.setSelectedIndex(-1);
 
+		addItemListenerForArtistComboBox();
+		addItemListenerForSongComboBox();
+
+		scrollPane = new JScrollPane();
+		scrollPane.setBounds(10, 92, 375, 268);
+		contentPane.add(scrollPane);
+
+		textArea = new JTextArea();
+		scrollPane.setViewportView(textArea);
+		textArea.setEditable(false);
+
+		for (ArtistEntry artistEntry : book.getArtists()) {
+			artistComboBox.addItem(artistEntry);
+		}
+	}
+
+	private void addItemListenerForArtistComboBox() {
 		artistComboBox.addItemListener(new ItemListener() {
 			@Override
 			public void itemStateChanged(ItemEvent e) {
 				if (e.getStateChange() == ItemEvent.SELECTED) {
 					ArtistEntry artistEntry = (ArtistEntry) e.getItem();
 					log.info("Chosen author: " + artistEntry);
-					
+
 					songComboBox.removeAllItems();
 					songComboBox.setSelectedIndex(-1);
 
@@ -97,16 +122,9 @@ public class App {
 				}
 			}
 		});
+	}
 
-		JLabel lblSong = new JLabel("Song:");
-		lblSong.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblSong.setBounds(7, 44, 63, 14);
-		panel.add(lblSong);
-
-		songComboBox = new JComboBox<SongEntry>();
-		songComboBox.setBounds(80, 41, 156, 20);
-		panel.add(songComboBox);
-
+	private void addItemListenerForSongComboBox() {
 		songComboBox.addItemListener(new ItemListener() {
 			@Override
 			public void itemStateChanged(ItemEvent e) {
@@ -127,17 +145,14 @@ public class App {
 				}
 			}
 		});
+	}
 
-		scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 92, 375, 268);
-		frmSongbook.getContentPane().add(scrollPane);
-
-		textArea = new JTextArea();
-		scrollPane.setViewportView(textArea);
-		textArea.setEditable(false);
-
-		for (ArtistEntry artistEntry : book.getArtists()) {
-			artistComboBox.addItem(artistEntry);
-		}
+	private void initializeFrame() {
+		frame = new JFrame();
+		frame.setTitle("SongBook");
+		frame.setResizable(false);
+		frame.setBounds(100, 100, 400, 400);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.getContentPane().setLayout(null);
 	}
 }
