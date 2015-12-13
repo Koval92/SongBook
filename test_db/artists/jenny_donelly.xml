@@ -4,6 +4,7 @@
 		<song id="song_c">Song C</song>
 		<song id="song_b">Song B</song>
 		<song id="song_a">Song A</song>
+		<song id="song_d">Song D with a long title</song>
 	</songs>
 	<description>
 		Author of world-known Song A and Song B.
