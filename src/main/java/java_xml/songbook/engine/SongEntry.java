@@ -42,8 +42,8 @@ public class SongEntry {
 		SongData songData = null;
 
 		if (!file.exists()) {
-			log.warning("No file for this song! Return null!");
-			return null;
+			log.warning("No file for this song! Return empty song data!");
+			return SongData.getEmpty();
 		}
 
 		JAXBContext songDataContext;
@@ -67,12 +67,7 @@ public class SongEntry {
 	}
 
 	public List<String> getMergedLyricsAndChords() {
-		SongData songData = getSongData();
-		if (songData == null) {
-			log.warning("return null!");
-			return null;
-		}
-		return songData.getMergedLyricsAndChords();
+		return getSongData().getMergedLyricsAndChords();
 	}
 
 	@Override

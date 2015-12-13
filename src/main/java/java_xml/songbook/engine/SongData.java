@@ -1,6 +1,7 @@
 package java_xml.songbook.engine;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -44,5 +45,12 @@ public class SongData {
 	public void setChords(List<String> chords) {
 		this.chords = chords;
 	}
-
+	
+	public static SongData getEmpty() {
+		SongData songData = new SongData();
+		songData.lyrics = Arrays.asList("*** No lyrics for this song ***");
+		songData.chords = Arrays.asList("*** No chords for this song ***");
+		
+		return songData;
+	}
 }
