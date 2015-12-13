@@ -1,7 +1,9 @@
 package java_xml.songbook.gui;
 
+import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.EventQueue;
+import java.awt.GridLayout;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.List;
@@ -12,6 +14,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 import javax.xml.bind.JAXBException;
@@ -28,10 +31,17 @@ public class App {
 
 	private JComboBox<ArtistEntry> artistComboBox;
 	private JComboBox<SongEntry> songComboBox;
-	private JTextArea textArea;
-	private JScrollPane scrollPane;
+	private JTextArea mergedTextArea;
+	private JScrollPane mergedPane;
 
 	private Container contentPane;
+	private JTabbedPane tabbedPane;
+
+	private JTextArea lyricsTextArea;
+
+	private JTextArea chordsTextArea;
+	private JPanel panel_1;
+	private JPanel panel_3;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -58,42 +68,63 @@ public class App {
 	private void initialize() {
 		initializeFrame();
 		contentPane = frame.getContentPane();
+		frame.getContentPane().setLayout(new BorderLayout(0, 0));
 
 		JPanel panel = new JPanel();
-		panel.setBounds(139, 11, 246, 70);
-		contentPane.add(panel);
-		panel.setLayout(null);
-
-		JLabel lblArtist = new JLabel("Artist");
-		lblArtist.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblArtist.setBounds(7, 15, 63, 14);
-		panel.add(lblArtist);
-
-		artistComboBox = new JComboBox<ArtistEntry>();
-		artistComboBox.setBounds(80, 12, 156, 20);
-		panel.add(artistComboBox);
-
-		JLabel lblSong = new JLabel("Song:");
-		lblSong.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblSong.setBounds(7, 44, 63, 14);
-		panel.add(lblSong);
-
-		songComboBox = new JComboBox<SongEntry>();
-		songComboBox.setBounds(80, 41, 156, 20);
-		panel.add(songComboBox);
-
-		artistComboBox.setSelectedIndex(-1);
+		contentPane.add(panel, BorderLayout.NORTH);
+																		panel.setLayout(new GridLayout(0, 1, 10, 5));
+																		
+																		panel_1 = new JPanel();
+																		panel.add(panel_1);
+																				panel_1.setLayout(new GridLayout(0, 2, 5, 0));
+																		
+																				JLabel lblArtist = new JLabel("Artist:");
+																				panel_1.add(lblArtist);
+																				lblArtist.setHorizontalAlignment(SwingConstants.RIGHT);
+																				
+																						artistComboBox = new JComboBox<ArtistEntry>();
+																						panel_1.add(artistComboBox);
+																						
+																								artistComboBox.setSelectedIndex(-1);
+																		
+																		panel_3 = new JPanel();
+																		panel.add(panel_3);
+																				panel_3.setLayout(new GridLayout(0, 2, 5, 0));
+																		
+																				JLabel lblSong = new JLabel("Song:");
+																				panel_3.add(lblSong);
+																				lblSong.setHorizontalAlignment(SwingConstants.RIGHT);
+																				
+																						songComboBox = new JComboBox<SongEntry>();
+																						panel_3.add(songComboBox);
 
 		addItemListenerForArtistComboBox();
 		addItemListenerForSongComboBox();
+		
+		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		frame.getContentPane().add(tabbedPane, BorderLayout.CENTER);
 
-		scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 92, 375, 268);
-		contentPane.add(scrollPane);
+		mergedPane = new JScrollPane();
+		tabbedPane.addTab("Merged", null, mergedPane, null);
 
-		textArea = new JTextArea();
-		scrollPane.setViewportView(textArea);
-		textArea.setEditable(false);
+		mergedTextArea = new JTextArea();
+		mergedPane.setViewportView(mergedTextArea);
+		mergedTextArea.setEditable(false);
+		
+		JScrollPane separatePane = new JScrollPane();
+		tabbedPane.addTab("Separate", null, separatePane, null);
+		
+		JPanel panel_2 = new JPanel();
+		separatePane.setViewportView(panel_2);
+		panel_2.setLayout(new GridLayout(0, 2, 15, 0));
+		
+		lyricsTextArea = new JTextArea();
+		lyricsTextArea.setEditable(false);
+		panel_2.add(lyricsTextArea);
+		
+		chordsTextArea = new JTextArea();
+		chordsTextArea.setEditable(false);
+		panel_2.add(chordsTextArea);
 
 		for (ArtistEntry artistEntry : book.getArtists()) {
 			artistComboBox.addItem(artistEntry);
@@ -117,7 +148,7 @@ public class App {
 							songComboBox.addItem(songEntry);
 						}
 					} else {
-						textArea.setText("No songs for this author");
+						mergedTextArea.setText("No songs for this author");
 					}
 				}
 			}
@@ -133,14 +164,32 @@ public class App {
 					log.info("Chosen song: " + songEntry);
 
 					List<String> mergedLyricsAndChords = songEntry.getMergedLyricsAndChords();
-					String str = "";
+					String mergedAsString = "";
 					if (mergedLyricsAndChords != null) {
 						for (String line : mergedLyricsAndChords) {
-							str = str + line + "\n";
+							mergedAsString = mergedAsString + line + "\n";
 						}
-						textArea.setText(str.trim());
+						mergedTextArea.setText(mergedAsString.trim());
 					} else {
-						textArea.setText("No file for this song!");
+						mergedTextArea.setText("No file for this song!");
+					}
+					
+					List<String> lyrics = songEntry.getLyrics();
+					String lyricsAsString = "";
+					if (lyrics != null) {
+						for (String line : lyrics) {
+							lyricsAsString = lyricsAsString + line + "\n";
+						}
+						lyricsTextArea.setText(lyricsAsString.trim());
+					}
+					
+					List<String> chords = songEntry.getChords();
+					String chordsAsString = "";
+					if (lyrics != null) {
+						for (String line : chords) {
+							chordsAsString = chordsAsString + line + "\n";
+						}
+						chordsTextArea.setText(chordsAsString.trim());
 					}
 				}
 			}
@@ -150,9 +199,7 @@ public class App {
 	private void initializeFrame() {
 		frame = new JFrame();
 		frame.setTitle("SongBook");
-		frame.setResizable(false);
-		frame.setBounds(100, 100, 400, 400);
+		frame.setBounds(100, 100, 474, 490);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
 	}
 }
