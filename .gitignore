@@ -3,3 +3,9 @@
 /.settings/
 /.project
 /.classpath
+
+/report/*.aux
+/report/*.pdf
+/report/*.log
+/report/*.out
+/report/*.gz
