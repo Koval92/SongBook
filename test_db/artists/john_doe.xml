@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <artist id="john_doe">
 	<songs>
-		<song id="song_1">Song 1</song>
 		<song id="song_2">Song 2</song>
+		<song id="song_1">Song 1</song>
 	</songs>
 	<description>
 		Author of world-known Song 1 and Song 2 (covered later by Blur).

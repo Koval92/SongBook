@@ -1,6 +1,7 @@
 package java_xml.songbook.engine;
 
 import java.io.File;
+import java.util.Comparator;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -53,6 +54,13 @@ public class ArtistEntry {
 				artistDataContext = JAXBContext.newInstance(ArtistData.class);
 				Unmarshaller artistDataUnmarshaller = artistDataContext.createUnmarshaller();
 				artistData = (ArtistData) artistDataUnmarshaller.unmarshal(file);
+				
+				artistData.getSongEntries().sort(new Comparator<SongEntry>() {
+					@Override
+					public int compare(SongEntry entry1, SongEntry entry2) {
+						return entry1.getName().compareTo(entry2.getName());
+					}
+				});
 			} catch (JAXBException e) {
 				e.printStackTrace();
 			}

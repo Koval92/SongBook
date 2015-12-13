@@ -2,6 +2,7 @@ package java_xml.songbook.engine;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.xml.bind.JAXBContext;
@@ -19,6 +20,14 @@ public class SongBook {
 		for (File file : getFileList(new File(dirName))) {
 			songBook.getArtistList().mergeWith((ArtistList) artistListUnmarshaller.unmarshal(file));
 		}
+		
+		songBook.getArtists().sort(new Comparator<ArtistEntry>() {
+			@Override
+			public int compare(ArtistEntry entry1, ArtistEntry entry2) {
+				return entry1.getName().compareTo(entry2.getName());
+			}
+		});
+		
 		return songBook;
 	}
 	
