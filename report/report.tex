@@ -6,17 +6,67 @@
 \usepackage[bookmarks=true]{hyperref}
 \usepackage[all]{hypcap}        % needed to help hyperlinks direct correctly;
 
-\title{Song book\\ \large Application programming – Java and XML technologies}
+\title{SongBook\\ \large Application programming – Java and XML technologies}
 \author{Michał Kowalski\\Maciej Borkowski}
 \date{}
 
 \begin{document}
-\hypersetup{pageanchor=false}
 \maketitle
-\hypersetup{pageanchor=true}
 
 \section{Introduction}
+SongBook is, without a surprise, a song book. It allows users to see lyrics and
+chords for songs, grouped by artists/authors, stored in application's directory
+in XML format. Adding/deleting/modifying of songs/artists can be done by
+adding/deleting/modyfing proper XML files. Application is written in Java, using
+JAXB and Swing.
 
 \section{Data model}
+All application's data is stored in 3 types of XML files:
+\begin{itemize}
+  \item index files,
+  \item artist files,
+  \item song files.
+\end{itemize}
+All files, except index ones, are loaded on-demand (lazy loading), which reduces
+application's start time and required memory, when database grows, and allows
+for changing data at runtime. Those files are parsed using JAXB into instances
+of classes.
+
+\subsection{Index file}
+Index file, as shown on fig. \ref{lst:index}, contains a list of artist entries.
+Each entry contains a name of artist and its ID. To find a data for artists,
+file name must be equal to artist's ID. Index file and artist entry have their
+appropiate Java classes for binding purposes.
+
+\begin{figure}
+\lstinputlisting[breaklines=true]{../test_db/index1.xml}
+\caption{Example file containing list of authors}
+\label{lst:index}
+\end{figure}
+
+\subsection{Author file}
+Author/artist file, as shown on fig. \ref{lst:artist}, contains a list of song
+entries and a description of author. Song entry contains song name and ID, and
+latter of those two is used for finding file with data for each song. Author
+file and song entry have their appropiate Java classes for binding purposes.
+
+\begin{figure}
+\lstinputlisting[breaklines=true]{../test_db/artists/jenny_donelly.xml}
+\caption{Example file for author containing list of his songs}
+\label{lst:artist}
+\end{figure}
+
+\subsection{Song file}
+Song file, shown on fig. \ref{lst:song}, is lowest file in data hierarchy. This
+file contains data for song - its lyrics and chords, represented in Java as
+simple list of strings, so only file must have own class for binding.
+
+\begin{figure}
+\lstinputlisting[breaklines=true]{../test_db/songs/song_a.xml}
+\caption{Example file for song}
+\label{lst:song}
+\end{figure}
+
+\section{GUI}
 
 \end{document}
