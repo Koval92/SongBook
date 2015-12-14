@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<songData>
+    <chords>
+        <line>Song A, chords line 0</line>
+        <line>Song A, chords line 1</line>
+        <line>Song A, chords line 2</line>
+        <line>Song A, chords line 3</line>
+    </chords>
+    <lyrics>
+        <line>Song A, lyrics line 0</line>
+        <line>Song A, lyrics line 1</line>
+        <line>Song A, lyrics line 2</line>
+        <line>Song A, lyrics line 3</line>
+    </lyrics>
+</songData>
