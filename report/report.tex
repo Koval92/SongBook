@@ -15,8 +15,8 @@
 
 \section{Introduction}
 SongBook is, without a surprise, a song book. It allows users to see lyrics and
-chords for songs, grouped by artists/authors, stored in application's directory
-in XML format. Adding/deleting/modifying of songs/artists can be done by
+chords for songs (for example for guitar learning purposes), grouped by
+artists/authors, stored in application's directory in XML format. Adding/deleting/modifying of songs/artists can be done by
 adding/deleting/modyfing proper XML files. Application is written in Java, using
 JAXB and Swing.
 
@@ -27,10 +27,11 @@ All application's data is stored in 3 types of XML files:
   \item artist files,
   \item song files.
 \end{itemize}
-All files, except index ones, are loaded on-demand (lazy loading), which reduces
-application's start time and required memory, when database grows, and allows
-for changing data at runtime. Those files are parsed using JAXB into instances
-of classes.
+All types of files are parsed using JAXB into instances of classes. All of them,
+except index ones, are loaded on-demand (lazy loading), which reduces application's start time and required memory, when database grows, and allows
+for changing data at runtime. Other exception with index files is that it is
+possible to have many index files, and result is the same as having all data in
+only one. Other types must have whole content in one file. 
 
 \subsection{Index file}
 Index file, as shown on fig. \ref{lst:index}, contains a list of artist entries.
@@ -68,5 +69,39 @@ simple list of strings, so only file must have own class for binding.
 \end{figure}
 
 \section{GUI}
+Main goal of designing GUI was to keep it simple. Actions available to user are:
+\begin{itemize}
+  \item choosing artist from list,
+  \item choosing song for chosen artist
+  \item choosing side-by-side or alternate displaying of lyrics and chords of
+  songs
+\end{itemize}
+When user chooses artist using combo-box, song's combo-box is repopulated with
+titles of songs belonging to that artist. In next step user chooses
+song, and its lyrics and chords appear in text area. User can choose between two
+ways of displaying them:
+\begin{enumerate}
+  \item Side-by-side - when user prefers to see chords next to lyrics.
+  \item Alternately - when user prefers to see chords for lyrics above each
+  line, or song doesn't have one of them, so showing two columns will be a waste
+  of space.
+\end{enumerate}
+In side-by-side way of showing it's important to always have proper lines next
+to each other, so when all lines don't fit into current window size, they are
+scrolled using one scrollbar.
+
+\begin{figure}
+\centering
+\includegraphics{img1}
+\caption{Application displaying lyrics and chords alternately}
+\label{img:merged}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics{img2}
+\caption{Application displaying lyrics and chords side-by-side}
+\label{img:separate}
+\end{figure}
 
 \end{document}
