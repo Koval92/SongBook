@@ -72,35 +72,35 @@ public class App {
 
 		JPanel panel = new JPanel();
 		contentPane.add(panel, BorderLayout.NORTH);
-																		panel.setLayout(new GridLayout(0, 1, 10, 5));
-																		
-																		panel_1 = new JPanel();
-																		panel.add(panel_1);
-																				panel_1.setLayout(new GridLayout(0, 2, 5, 0));
-																		
-																				JLabel lblArtist = new JLabel("Artist:");
-																				panel_1.add(lblArtist);
-																				lblArtist.setHorizontalAlignment(SwingConstants.RIGHT);
-																				
-																						artistComboBox = new JComboBox<ArtistEntry>();
-																						panel_1.add(artistComboBox);
-																						
-																								artistComboBox.setSelectedIndex(-1);
-																		
-																		panel_3 = new JPanel();
-																		panel.add(panel_3);
-																				panel_3.setLayout(new GridLayout(0, 2, 5, 0));
-																		
-																				JLabel lblSong = new JLabel("Song:");
-																				panel_3.add(lblSong);
-																				lblSong.setHorizontalAlignment(SwingConstants.RIGHT);
-																				
-																						songComboBox = new JComboBox<SongEntry>();
-																						panel_3.add(songComboBox);
+		panel.setLayout(new GridLayout(0, 1, 10, 5));
+
+		panel_1 = new JPanel();
+		panel.add(panel_1);
+		panel_1.setLayout(new GridLayout(0, 2, 5, 0));
+
+		JLabel lblArtist = new JLabel("Artist:");
+		panel_1.add(lblArtist);
+		lblArtist.setHorizontalAlignment(SwingConstants.RIGHT);
+
+		artistComboBox = new JComboBox<ArtistEntry>();
+		panel_1.add(artistComboBox);
+
+		artistComboBox.setSelectedIndex(-1);
+
+		panel_3 = new JPanel();
+		panel.add(panel_3);
+		panel_3.setLayout(new GridLayout(0, 2, 5, 0));
+
+		JLabel lblSong = new JLabel("Song:");
+		panel_3.add(lblSong);
+		lblSong.setHorizontalAlignment(SwingConstants.RIGHT);
+
+		songComboBox = new JComboBox<SongEntry>();
+		panel_3.add(songComboBox);
 
 		addItemListenerForArtistComboBox();
 		addItemListenerForSongComboBox();
-		
+
 		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		frame.getContentPane().add(tabbedPane, BorderLayout.CENTER);
 
@@ -110,18 +110,18 @@ public class App {
 		mergedTextArea = new JTextArea();
 		mergedPane.setViewportView(mergedTextArea);
 		mergedTextArea.setEditable(false);
-		
+
 		JScrollPane separatePane = new JScrollPane();
 		tabbedPane.addTab("Separate", null, separatePane, null);
-		
+
 		JPanel panel_2 = new JPanel();
 		separatePane.setViewportView(panel_2);
 		panel_2.setLayout(new GridLayout(0, 2, 15, 0));
-		
+
 		lyricsTextArea = new JTextArea();
 		lyricsTextArea.setEditable(false);
 		panel_2.add(lyricsTextArea);
-		
+
 		chordsTextArea = new JTextArea();
 		chordsTextArea.setEditable(false);
 		panel_2.add(chordsTextArea);
@@ -149,6 +149,8 @@ public class App {
 						}
 					} else {
 						mergedTextArea.setText("No songs for this author");
+						lyricsTextArea.setText("");
+						chordsTextArea.setText("");
 					}
 				}
 			}
@@ -173,7 +175,7 @@ public class App {
 					} else {
 						mergedTextArea.setText("No file for this song!");
 					}
-					
+
 					List<String> lyrics = songEntry.getLyrics();
 					String lyricsAsString = "";
 					if (lyrics != null) {
@@ -182,7 +184,7 @@ public class App {
 						}
 						lyricsTextArea.setText(lyricsAsString.trim());
 					}
-					
+
 					List<String> chords = songEntry.getChords();
 					String chordsAsString = "";
 					if (lyrics != null) {
